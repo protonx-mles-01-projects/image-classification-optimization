@@ -1,5 +1,5 @@
 {
-    "port": "900",
+    "port": "3000",
     "host": "localhost",
-    "debug_mode": "True"
+    "debug": "True"
 }
