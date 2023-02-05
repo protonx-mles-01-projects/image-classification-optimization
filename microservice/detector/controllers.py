@@ -3,13 +3,18 @@ from flask import request
 import os
 from app import app
 import numpy as np
+from flask import jsonify
+import cv2
 
-
-@detector_blueprint.route('/api/detect', method=['POST'])
+@detector_blueprint.route('api/detect', method=['POST'])
 def detect():
     # TODO: write detect image api
-    input_data = request.get_json()
-    # Convert the input data to a numpy array
-    input_data = np.array(input_data)
-    print(input_data.shape)
-    return f'Image has shape {input_data.shape}'
+    if request.files:
+        binary_files = request.files.get('image_file').read()
+        img = cv2.imread(binary_files)
+        return f"Image has shape {img.shape}"
+    
+    return jsonify({
+        "message": "Don't have image to detect",
+        "status": False
+    })
