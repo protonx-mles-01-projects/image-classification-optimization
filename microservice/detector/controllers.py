@@ -1,18 +1,29 @@
-import cv2
-import numpy as np
+import onnxruntime as ort
 from flask import jsonify, request
 from detector import detector_blueprint
+from common import preprocess_image
+
+MODEL_PATH = "../microservice/model_onnx/model.onnx"
+
+# Load model
+sess = ort.InferenceSession(MODEL_PATH)
+input_name = sess.get_inputs()[0].name
+label_name = sess.get_outputs()[0].name
 
 @detector_blueprint.route('/api/detect', methods=['POST'])
 def detect():
     # TODO: write detect image api
     if request.files:
         binary_files = request.files.get('image_file').read()
-        img = cv2.imdecode(np.frombuffer(binary_files, np.uint8), -1)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        return f"Image has shape {img.shape}"
+        img = preprocess_image(binary_files)
+        predict = sess.run([label_name], {input_name: img})
+        result = 'cat' if(predict[0] == 0) else 'dog'
+        return jsonify({
+            "message": "Successfully",
+            "result": result
+        })
     
     return jsonify({
-        "message": "Don't have image to detect",
-        "status": False
+        "message": "Failed",
+        "reason": "Don't have image to detect",
     })
