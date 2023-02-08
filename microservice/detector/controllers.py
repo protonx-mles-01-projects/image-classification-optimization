@@ -3,7 +3,7 @@ from flask import jsonify, request
 from detector import detector_blueprint
 from common import preprocess_image
 
-MODEL_PATH = "../microservice/model_onnx/model.onnx"
+MODEL_PATH = "model_onnx/model.onnx"
 
 # Load model
 sess = ort.InferenceSession(MODEL_PATH)
