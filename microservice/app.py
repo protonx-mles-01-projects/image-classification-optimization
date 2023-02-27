@@ -1,8 +1,8 @@
 import json
-from flask import Flask
+from flask import Flask, jsonify
 from detector.controllers import detector_blueprint
 
-#TODO: Init app
+# TODO: Init app
 app = Flask(__name__)
 
 try:
@@ -16,9 +16,17 @@ except:
         'port': 3000
     }
 
-#TODO: register blueprint
+# TODO: register blueprint
 app.register_blueprint(detector_blueprint)
-    
-#TODO: Start app
+
+
+@app.route('/', methods=['GET'])
+def default_api():
+    return jsonify({
+        "message": "This is default api"
+    })
+
+
+# TODO: Start app
 if __name__ == '__main__':
     app.run(**config)
