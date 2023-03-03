@@ -1,126 +1,128 @@
-# Project Name <--- FIXME
-
-Library Logo <--- **FIXME**
+# MLE PROJECT: OPTIMIZE IMAGE CLASSIFICATION
 
 <p align="center">
     <img src='https://storage.googleapis.com/protonx-cloud-storage/transformer/protonx-transf.png' width=200 class="center">
 </p>
 
-Description about your project. Why do you choose to build this?  <--- **FIXME**
-
-Slide about your project (if it's available) <--- **FIXME**
-
-Architecture Image <--- **FIXME**
-
+Slide about project: [click here](https://docs.google.com/presentation/d/1FbZp18rV2AMBOPFUg0yYb_3h96vZ2uNd/edit#slide=id.p1)
 
 Authors:
-- Github: members github name <--- **FIXME**
-- Email: members emails <--- **FIXME**
+
+- Github: https://github.com/minhhiepcr
+- Email: truongminhhiep246@gmail.com
+- Github: https://github.com/Johnx69
+- Email: hoanganh692004@gmail.com
+- Github: https://github.com/vinhtran26092001
+- Email: tranvinh26092001@gmail.com
 
 Advisors:
-- Github: advisor github name <--- **FIXME**
-- Email: advisor emails <--- **FIXME**
 
-## I.  Set up environment
-- Step 1: <--- **FIXME**
+- Github: https://github.com/bangoc123
+- Email: bangoc.gdg@gmail.com
 
-```python
-conda env create -f environment.yml
+## I. Set up environment
+
+We use Google colab to download dataset, pretrained model, fine-tune and export it to ONNX model after complete training process. You can find the our notebook in [here](./notebook/Dogs_Cats_MobileNet.ipynb).
+
+The dataset can be found [here](https://www.kaggle.com/competitions/dogs-vs-cats/data)
+
+## II. Training Process
+
+This is the result of training process
+
+```sh
+Epoch 10/20
+32/32 [==============================] - 28s 900ms/step - loss: 0.3010 - accuracy: 0.9719 - val_loss: 0.0556 - val_accuracy: 0.9797
+Epoch 11/20
+32/32 [==============================] - 28s 898ms/step - loss: 0.2545 - accuracy: 0.9688 - val_loss: 0.5366 - val_accuracy: 0.9625
+Epoch 12/20
+32/32 [==============================] - 28s 901ms/step - loss: 0.3735 - accuracy: 0.9703 - val_loss: 0.2056 - val_accuracy: 0.9781
+Epoch 13/20
+32/32 [==============================] - 28s 903ms/step - loss: 0.3763 - accuracy: 0.9719 - val_loss: 0.2275 - val_accuracy: 0.9750
+Epoch 14/20
+32/32 [==============================] - 29s 907ms/step - loss: 0.1343 - accuracy: 0.9875 - val_loss: 0.1534 - val_accuracy: 0.9766
+Epoch 15/20
+32/32 [==============================] - 29s 907ms/step - loss: 0.1849 - accuracy: 0.9875 - val_loss: 0.2573 - val_accuracy: 0.9719
+Epoch 16/20
+32/32 [==============================] - 28s 902ms/step - loss: 0.1530 - accuracy: 0.9859 - val_loss: 0.3693 - val_accuracy: 0.9734
+Epoch 17/20
+32/32 [==============================] - 28s 903ms/step - loss: 0.1701 - accuracy: 0.9844 - val_loss: 0.1868 - val_accuracy: 0.9812
+Epoch 18/20
+32/32 [==============================] - 29s 906ms/step - loss: 0.0948 - accuracy: 0.9906 - val_loss: 0.1464 - val_accuracy: 0.9812
+Epoch 19/20
+32/32 [==============================] - 29s 905ms/step - loss: 0.2519 - accuracy: 0.9828 - val_loss: 0.1669 - val_accuracy: 0.9797
+Epoch 20/20
+32/32 [==============================] - 29s 917ms/step - loss: 0.2726 - accuracy: 0.9859 - val_loss: 0.2805 - val_accuracy: 0.9734
 ```
 
-- Step 2: <--- **FIXME**
-```
+## III. Microservice
+
+In this session, we use Flask framework to write microservice and containerize it by using Docker. All code can be found in [microservice](./microservice/) folder.
+
+Tutorial to start the microservice:
+
+Step 1:
 
 ```
-
-- Step 3: <--- **FIXME**
-
+cd microservice/
 ```
 
-``` 
-
-## II.  Set up your dataset
-
-- Guide user how to download your data and set the data pipeline <--- **FIXME**
-- References: [NLP](https://github.com/bangoc123/transformer) and [CV](https://github.com/bangoc123/mlp-mixer)
-
-## III. Training Process
-
-
-**FIXME**
-
-Training script:
-
-
-```python
-
-python train.py --epochs ${epochs} --input-lang en --target-lang vi --input-path ${path_to_en_text_file} --target-path ${path_to_vi_text_file}
+Step 2: Install related packages
 
 ```
-**FIXME**
-
-Example:
-
-```python
-
-!python train.py --train-folder ${train_folder} --valid-folder ${valid_folder} --num-classes 2 --patch-size 5 --image-size 150 --lr 0.0001 --epochs 200 --num-heads 12 
-
-``` 
-**FIXME**
-
-There are some important arguments for the script you should consider when running it:
-
-- `train-folder`: The folder of training data
-- `valid-folder`: The folder of validation data
-- ...
-
-## IV. Predict Process
-
-```bash
-python predict.py --test-data ${link_to_test_data}
+python -m pip install -r requirements.txt
 ```
 
-## V. Result and Comparision
+Step 3: Start microservice:
 
-**FIXME**
-
-Your implementation
-```
-Epoch 7/10
-782/782 [==============================] - 261s 334ms/step - loss: 0.8315 - acc: 0.8565 - val_loss: 0.8357 - val_acc: 0.7978
-Epoch 8/10
-782/782 [==============================] - 261s 334ms/step - loss: 0.3182 - acc: 0.8930 - val_loss: 0.6161 - val_acc: 0.8047
-Epoch 9/10
-782/782 [==============================] - 261s 333ms/step - loss: 1.1965 - acc: 0.8946 - val_loss: 3.9842 - val_acc: 0.7855
-Epoch 10/10
-782/782 [==============================] - 261s 333ms/step - loss: 0.4717 - acc: 0.8878 - val_loss: 0.4894 - val_acc: 0.8262
-
+```sh
+python app.py
 ```
 
-**FIXME**
+In the local, you can see the service run in port 9000. You can url http://localhost:9000/api/detect to send test request.
 
-Other architecture
+Tutorial to deploy docker on DigitalOcean
 
-```
-Epoch 6/10
-391/391 [==============================] - 115s 292ms/step - loss: 0.1999 - acc: 0.9277 - val_loss: 0.4719 - val_acc: 0.8130
-Epoch 7/10
-391/391 [==============================] - 114s 291ms/step - loss: 0.1526 - acc: 0.9494 - val_loss: 0.5224 - val_acc: 0.8318
-Epoch 8/10
-391/391 [==============================] - 115s 293ms/step - loss: 0.1441 - acc: 0.9513 - val_loss: 0.5811 - val_acc: 0.7875
+Step 1: Containerize to docker image
+
+```sh
+sudo docker build -t [IMAGE NAME]:[TAG OF IMAGE] .
 ```
 
-Your comments about these results <--- **FIXME**
+Note that, IMAGE NAME is suitable with your repo on DockerHub.
 
+Step 2: Push image to DockerHub
 
-## VI. Running Test
-
-When you want to modify the model, you need to run the test to make sure your change does not affect the whole system.
-
-In the `./folder-name` **(FIXME)** folder please run:
-
-```bash
-pytest
+```sh
+sudo docker push [IMAGE NAME]:[TAG OF IMAGE]
 ```
 
+Step 3: Create Droplets on DigitalOcean.
 
+Step 4: SSH to Droplets and pull image from DockerHub
+
+```sh
+sudo docker pull [IMAGE NAME]:[TAG OF IMAGE]
+sudo docker run -it -d -p 80:9000 --name [CONTAINER NAME] [IMAGE NAME]:[TAG OF IMAGE]
+```
+
+Step 5: Create Load Balancing and connect to all your droplets.
+
+Step 6: Use public ip of Load Balancing to send request
+
+## IV. Result of microservice
+
+The sample of the request:
+
+{
+'image_file': [image]
+}
+
+The response after sending request to the server.
+
+```json
+{
+  "message": "Successfully",
+  "result": "dog"
+}
+```
