@@ -22,6 +22,10 @@ Advisors:
 
 ## I. Set up environment
 
+The problem here is how we can create microservice to classify cat & dog image. To solve this problem we use the Kaggle's dataset and MobileNet.
+
+![alt text for screen readers](https://camo.githubusercontent.com/f0fe57a3540c293e21dcadff0cf5dedf3aaaea16509613822ee713fd40228a91/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f313833382f312a6f4233533579484868766f75674a6b50587563386f672e676966 "Text to show on mouseover")
+
 We use Google colab to download dataset, pretrained model, fine-tune and export it to ONNX model after complete training process. You can find the our notebook in [here](./notebook/Dogs_Cats_MobileNet.ipynb).
 
 The dataset can be found [here](https://www.kaggle.com/competitions/dogs-vs-cats/data)
@@ -55,6 +59,14 @@ Epoch 20/20
 32/32 [==============================] - 29s 917ms/step - loss: 0.2726 - accuracy: 0.9859 - val_loss: 0.2805 - val_accuracy: 0.9734
 ```
 
+After training model, we convert it to ONNX model. The following table will compare the result of two models.
+
+|                    | MobileNet (.h5 format) | MobileNet (.onnx format) |
+| ------------------ | ---------------------- | ------------------------ |
+| Train accuracy     | 98.59%                 | 93.10%                   |
+| Validation accuray | 97.34%                 | 92.36%                   |
+| Model size         | 13MB                   | 12.41MB                  |
+
 ## III. Microservice
 
 In this session, we use Flask framework to write microservice and containerize it by using Docker. All code can be found in [microservice](./microservice/) folder.
@@ -79,7 +91,7 @@ Step 3: Start microservice:
 python app.py
 ```
 
-In the local, you can see the service run in port 9000. You can url http://localhost:9000/api/detect to send test request.
+In the local, you can see the service run in port 9000. You can use http://localhost:9000/api/detect to send test request.
 
 Tutorial to deploy docker on DigitalOcean
 
@@ -114,9 +126,11 @@ Step 6: Use public ip of Load Balancing to send request
 
 The sample of the request:
 
+```json
 {
-'image_file': [image]
+  "image_file": [image]
 }
+```
 
 The response after sending request to the server.
 
