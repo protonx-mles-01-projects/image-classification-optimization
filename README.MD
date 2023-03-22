@@ -18,7 +18,7 @@ Authors:
 Advisors:
 
 - Github: https://github.com/bangoc123
-- Email: bangoc.gdg@gmail.com
+- Email: protonxai@gmail.com
 
 ## I. Set up environment
 
